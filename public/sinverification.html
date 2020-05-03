@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SIN Validation</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+        <script async src="js/sin-helper.js"></script>
+    </head>
+    <body>
+        <h1>SIN Validation</h1>
+        <form>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="sinNumber">SIN Number</label>
+                        <input type="text" maxlength="9" class="form-control" id="sinInput" placeholder="123456789">
+                        <div class="invalid-feedback" id="invalid-feedback">
+                            Invalid SIN
+                        </div>
+                        <div class="valid-feedback" id="valid-feedback">
+                            Valid SIN
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="Province">Province</label>
+                        <input class="form-control" type="text" id="provinceName" placeholder="None" readonly>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <script>
+            var input = document.getElementById("sinInput");
+            input.onkeyup = function() {
+                var result = {
+                    valid: false,
+                    reason: "",
+                    province: "None",
+                    apply: function() {
+                        setValid(input, result.valid);
+                        // Set Reason
+                        document.getElementById("invalid-feedback")
+                            .innerHTML = result.reason;
+                        // Set Province
+                        document.getElementById("provinceName")
+                            .placeholder = result.province;
+                    }
+                };
+                // check if SIN is valid
+                verifySIN(input.value, result)
+                // apply results
+                result.apply();
+            }
+        </script>
+    </body>
+</html>
